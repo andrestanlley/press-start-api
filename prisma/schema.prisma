@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  surname   String
+  email     String?  @unique
+  cellphone String
+  birthDate DateTime
+
+  Autentication   Autentication @relation(fields: [autenticationId], references: [id])
+  autenticationId Int           @unique
+}
+
+model Autentication {
+  id       Int     @id @default(autoincrement())
+  password String
+  status   Boolean
+
+  UserId Int
+  User   User?
+}

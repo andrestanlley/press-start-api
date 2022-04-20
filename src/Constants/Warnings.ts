@@ -14,5 +14,8 @@ export const warning  = {
     surnameLenght: "Tamanho do sobrenome incorreto",
     invalidPhone: "Informe um telefone válido.",
     invalidDate: "Informe uma data válida",
-    routeNotFound: "Rota não encontrada"
+    routeNotFound: "Rota não encontrada",
+    invalidStatus: "Revise o status do usuario",
+    passwordLenght: "Senha não corresponde ao tamanho exigido",
+    emailInUse: "Usuario já cadastrado"
 }

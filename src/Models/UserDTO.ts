@@ -1,15 +1,19 @@
-export class User{
+export class UserDTO{
     name: string
     surname: string
     cellphone: string
-    mail: string
+    email: string
     birthDate: Date
+    password: string
+    status: boolean
 
-    constructor(user: User){
+    constructor(user: UserDTO){
         this.name = user.name,
         this.surname = user.surname,
         this.cellphone = user.cellphone,
-        this.mail = user.mail,
+        this.email = user.email,
         this.birthDate = user.birthDate
+        this.password = user.password
+        this.status = user.status
     }
 }

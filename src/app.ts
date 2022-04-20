@@ -1,8 +1,7 @@
-import handleError from './Middlewares/handleGlobalException'
-import express, { Request, Response } from 'express'
+import express from 'express'
 import router from './Routes/api'
 import dotenv from 'dotenv'
-import { warning } from './Constants/Warnings'
+import handleError from './Middlewares/handleGlobalException'
 dotenv.config()
 const now = new Date()
 const app = express()

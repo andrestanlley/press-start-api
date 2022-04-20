@@ -3,6 +3,7 @@ import {listAll, addUser, updateUser, deleteUser} from '../Controllers/usersCont
 import { userValidation } from '../Middlewares/userValidation'
 import { validate } from '../Middlewares/handleValidation'
 import { warning } from '../Constants/Warnings'
+import handleError from '../Middlewares/handleGlobalException'
 
 const router = Router()
 

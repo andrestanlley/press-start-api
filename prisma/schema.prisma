@@ -15,8 +15,9 @@ model User {
   cellphone String
   birthDate DateTime
 
+
   Autentication   Autentication @relation(fields: [autenticationId], references: [id])
-  autenticationId Int           @unique
+  autenticationId Int
 }
 
 model Autentication {
@@ -24,6 +25,5 @@ model Autentication {
   password String
   status   Boolean
 
-  UserId Int
-  User   User?
+  User User[]
 }

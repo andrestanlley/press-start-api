@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { warning } from "../Constants/Warnings";
+import { CustomError } from "../DTOs/Request/ErrorResponse";
 import { registerUser, listAllUsers, updateUsers } from "../Services/userService";
 
 export const listAll = async(req: Request, res: Response) => {
@@ -8,8 +9,7 @@ export const listAll = async(req: Request, res: Response) => {
 
 export const addUser = async(req: Request, res: Response) => {
     const {user} = req.body
-    const newUser = await registerUser(user)
-    return res.status(201).send({ message: warning.userAddSucess, newUser })
+    return res.status(201).send(await registerUser(user))
 }
 
 export const updateUser = async(req: Request, res: Response) => {

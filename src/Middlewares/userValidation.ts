@@ -15,7 +15,7 @@ export const userValidation = () =>{
         .notEmpty().withMessage(warning.emptySurname)
         .not().isNumeric().withMessage(warning.noNumberSurname),
 
-        body("user.mail")
+        body("user.email")
         .isEmail().withMessage(warning.mailIncorrect)
         .isLength({ min: 10, max: 100}).withMessage(warning.mailIncorrect),
 
@@ -26,6 +26,12 @@ export const userValidation = () =>{
         .withMessage(warning.invalidPhone),
 
         body('user.birthDate')
-        .isDate().withMessage(warning.invalidDate)
+        .isDate().withMessage(warning.invalidDate),
+
+        body('user.password')
+        .isLength({ min: 6, max: 50 }).withMessage(warning.passwordLenght),
+
+        body('user.status')
+        .isBoolean().withMessage(warning.invalidStatus)
     ]
 }

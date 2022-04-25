@@ -17,5 +17,7 @@ export const warning  = {
     routeNotFound: "Rota não encontrada",
     invalidStatus: "Revise o status do usuario",
     passwordLenght: "Senha não corresponde ao tamanho exigido",
-    emailInUse: "Usuario já cadastrado"
+    emailInUse: "Usuario já cadastrado",
+    unauthorized: "Não autorizado.",
+    welcome: "Autenticado com sucesso!"
 }

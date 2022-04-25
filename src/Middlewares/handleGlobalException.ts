@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { CustomError } from '../DTOs/Request/ErrorResponse';
+import { CustomError } from '../DTOs/Response/ErrorResponse';
 import {warning} from '../Constants/Warnings'
 
 export default function handleError(err: TypeError | CustomError, req: Request, res: Response, next: NextFunction){

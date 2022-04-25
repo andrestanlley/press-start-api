@@ -1,28 +1,71 @@
 import { warning } from "../Constants/Warnings";
-import { CustomError } from "../DTOs/Request/ErrorResponse";
-import { UserDTO } from "../Models/UserDTO";
-import { getByEmail, addUser } from "../Repository/userRepository";
+import { CustomError } from "../DTOs/Response/ErrorResponse";
+import IUserService from "../Interfaces/IUserService";
+import { UserDTO } from "../DTOs/Request/UserDTO";
+import userRepository from "../Repository/userRepository";
+import bcrypt from 'bcrypt'
 
-export const listAllUsers = async()=>{
-    const users = []
+const repository = new userRepository()
 
-    if (users.length === 0) {
-        throw new CustomError(warning.noUsers, 404)
+export default class userService implements IUserService {
+    allUsers = async (qnt: number) => {
+        if (!qnt)
+            qnt = 10
+        const users = await repository.all(qnt)
+
+        if (!Object.keys(users).length)
+            return new CustomError(warning.noUsers, 404)
+
+        return users
     }
 
-    return []
-}
+    registerUser = async (user: UserDTO) => {
+        const emailInUse: object | null = await repository.getByEmail(user.email)
 
-export const registerUser = async(user: UserDTO)=>{
-    const emailInUse: object | null = await getByEmail(user.email)
+        if (emailInUse)
+            return new CustomError(warning.emailInUse, 409)
+
+        let hashPassword = bcrypt.hashSync(user.password, 10)
+        user.password = hashPassword
+
+        const newUser = await repository.add(user)
+        return { status: 201, message: warning.userAddSucess, newUser }
+    }
+
+    getByEmail = async(email: string)=>{
+        const user: object | null = await repository.getByEmail(email)
+
+        if (user)
+            return user
+        
+        return new CustomError(warning.internalError, 404)
+    }
     
-    if(emailInUse)
-        return new CustomError(warning.emailInUse, 409)
+    getById = async (id: number) => {
+        const user = await repository.findById(id)
+        if (!user)
+            return new CustomError(warning.noUserId, 404)
 
-    const newUser = await addUser(user)
-    return {status: 201, message: warning.userAddSucess, newUser}
-}
+        return user
+    }
 
-export const updateUsers = async(id: number, user: UserDTO)=>{
-    return id
+    updateUsers = async (id: number, user: UserDTO) => {
+        const userFind = await repository.findById(id)
+
+        if (!userFind)
+            return new CustomError(warning.noUserId, 404)
+
+        const updatedUser = await repository.update(id, user)
+        return updatedUser
+    }
+
+    deleteUser = async (id: number) => {
+        const user: object | null = await repository.findById(id)
+
+        if (!user)
+            return new CustomError(warning.noUsers, 404)
+
+        await repository.delete(id)
+        return { status: 200, message: warning.userDeleted }
+    }
 }

@@ -16,7 +16,7 @@ model User {
   birthDate DateTime
 
 
-  Autentication   Autentication @relation(fields: [autenticationId], references: [id])
+  Autentication   Autentication @relation(fields: [autenticationId], references: [id], onDelete: Cascade)
   autenticationId Int
 }
 
@@ -25,5 +25,5 @@ model Autentication {
   password String
   status   Boolean
 
-  User User[]
+  User User?
 }

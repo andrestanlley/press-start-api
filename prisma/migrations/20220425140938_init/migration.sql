@@ -12,7 +12,8 @@ CREATE TABLE [dbo].[User] (
     [birthDate] DATETIME2 NOT NULL,
     [autenticationId] INT NOT NULL,
     CONSTRAINT [User_pkey] PRIMARY KEY ([id]),
-    CONSTRAINT [User_email_key] UNIQUE ([email])
+    CONSTRAINT [User_email_key] UNIQUE ([email]),
+    CONSTRAINT [User_autenticationId_key] UNIQUE ([autenticationId])
 );
 
 -- CreateTable
@@ -24,7 +25,7 @@ CREATE TABLE [dbo].[Autentication] (
 );
 
 -- AddForeignKey
-ALTER TABLE [dbo].[User] ADD CONSTRAINT [User_autenticationId_fkey] FOREIGN KEY ([autenticationId]) REFERENCES [dbo].[Autentication]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[User] ADD CONSTRAINT [User_autenticationId_fkey] FOREIGN KEY ([autenticationId]) REFERENCES [dbo].[Autentication]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
 
 COMMIT TRAN;
 

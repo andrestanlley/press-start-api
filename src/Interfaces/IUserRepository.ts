@@ -5,6 +5,7 @@ export default interface IUserRepository{
     getByEmail(email: string):object
     add(user: UserDTO):object
     findById(id: number):object
+    findByIdWithAuth(id: number):object
     update(id: number, user: UserDTO):object
     delete(id: number):object
 }

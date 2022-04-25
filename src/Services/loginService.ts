@@ -24,7 +24,7 @@ export default class loginService{
         const token = jwt.sign({
             id: user.id,
             email: user.email,
-            status: user.status
+            status: user.Autentication.status
         },JWTSECRET!, {
             expiresIn: "2h"
         })

@@ -20,6 +20,9 @@ export default class userService implements IUserService {
     }
 
     registerUser = async (user: UserDTO) => {
+        if(user.password == "") 
+            return {status: 400, message: warning.passwordFormat}
+
         const emailInUse: object | null = await repository.getByEmail(user.email)
 
         if (emailInUse)
@@ -50,13 +53,16 @@ export default class userService implements IUserService {
     }
 
     updateUsers = async (id: number, user: UserDTO) => {
-        const userFind = await repository.findById(id)
+        const userFind = await repository.findByIdWithAuth(id)
 
         if (!userFind)
             return new CustomError(warning.noUserId, 404)
 
+        if(user.password == "")
+            user.password = userFind.Autentication.password
+
         const updatedUser = await repository.update(id, user)
-        return updatedUser
+        return {status: 200, message: warning.userUpdated, updatedUser}
     }
 
     deleteUser = async (id: number) => {

@@ -34,6 +34,15 @@ export default class userRepository implements IUserRepository{
         })
     }
 
+    findByIdWithAuth = async (id: number) => {
+        return await prismaClient.user.findFirst({
+            where: { id: id },
+            include: {
+                Autentication: true
+            }
+        })
+    }
+
     update = async(id: number, user: UserDTO)=>{
         return await prismaClient.user.update({
             where: { id: id },

@@ -29,7 +29,8 @@ export const userValidation = () =>{
         .isDate().withMessage(warning.invalidDate),
 
         body('user.password')
-        .isLength({ min: 6, max: 50 }).withMessage(warning.passwordLenght),
+        .custom(pass => pass == "" || (pass.length >= 6 && pass.search(/[0-9]/)))
+        .withMessage(warning.passwordFormat),
 
         body('user.status')
         .isBoolean().withMessage(warning.invalidStatus)

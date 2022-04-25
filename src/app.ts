@@ -1,5 +1,6 @@
 import express from 'express'
-import router from './Routes/api'
+import api from './Routes/api'
+import login from './Routes/login'
 import dotenv from 'dotenv'
 import handleError from './Middlewares/handleGlobalException'
 dotenv.config()
@@ -7,7 +8,8 @@ const app = express()
 app.use(express.json())
 
 // ROTAS DA API
-app.use('/api', router)
+app.use('/login', login)
+app.use('/api', api)
 
 app.use(handleError)
 app.listen(process.env.PORT || 3000, () => {

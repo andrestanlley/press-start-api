@@ -4,6 +4,7 @@ import { CustomError } from "../DTOs/Response/ErrorResponse"
 import { warning } from "../Constants/Warnings"
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import ILoginService from "../Interfaces/ILoginService"
 dotenv.config()
 
 const {JWTSECRET} = process.env
@@ -11,7 +12,7 @@ const {JWTSECRET} = process.env
 
 const userService = new UserService()
 
-export default class loginService{
+export default class loginService implements ILoginService{
     login = async(email: string, password: string)=>{
         const user: any = await userService.getByEmail(email)
 

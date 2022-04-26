@@ -14,9 +14,7 @@ export default class userRepository implements IUserRepository{
     getByEmail = async (email: string) => {
         return await prismaClient.user.findUnique({
             where: { email },
-            include:{
-                Autentication: true
-            }
+            include:{ Autentication: true }
         })
     }
 

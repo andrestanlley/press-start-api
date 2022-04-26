@@ -58,8 +58,16 @@ export default class userService implements IUserService {
         if (!userFind)
             return new CustomError(warning.noUserId, 404)
 
-        if(user.password == "")
+        const emailInUse: any | null = await repository.getByEmail(user.email)
+
+        if (emailInUse && emailInUse.id != id)
+            return new CustomError(warning.emailInUse, 409)
+
+        if(user.password == ""){
             user.password = userFind.Autentication.password
+        }else{
+            user.password = bcrypt.hashSync(user.password, 10)
+        }
 
         const updatedUser = await repository.update(id, user)
         return {status: 200, message: warning.userUpdated, updatedUser}

@@ -5,7 +5,8 @@ Esse é um projeto de estudo em NodeJs construido durante o programa Press Start
 ## Rotas
     /login * Faz a autorização das rotas seguintes via Token utilizando JWT
 
-    /api/listAll/qnt * Devolve todos os usuarios cadastrados, pode ser passado como parâmetro a quantidade de usuarios a ser retornada, caso vázio o padrão é 10.
+    /api/listAll/qnt * Devolve todos os usuarios cadastrados, pode ser passado como parâmetro
+    a quantidade de usuarios a ser retornada, caso vázio o padrão é 10.
     /api/getById/id * Devolve o usuário correspondente aquele ID ou uma mensagem de não encontrado.
     /api/addUser * Cadastra um usuario
     /api/updateUser/id * Atualiza um usuario de acordo com o ID informado

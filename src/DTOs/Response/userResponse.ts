@@ -4,5 +4,10 @@ export default {
     email: true,
     cellphone: true,
     birthDate: true,
-    autenticationId: false
+    autenticationId: false,
+    Autentication: {
+        select: {
+            status: true
+        }
+    }
 }

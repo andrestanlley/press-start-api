@@ -5,5 +5,6 @@ const loginService = new LoginService()
 
 export const login = async(req: Request, res: Response)=>{
     const {email, password} = req.body
-    res.status(200).send(await loginService.login(email, password))
+    const loggedUser = await loginService.login(email, password)
+    res.status(loggedUser.status || 200).send(loggedUser)
 }

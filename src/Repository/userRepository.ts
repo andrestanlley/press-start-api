@@ -2,19 +2,21 @@ import IUserRepository from '../Interfaces/IUserRepository'
 import { UserDTO } from '../DTOs/Request/UserDTO'
 import prismaClient from "../Prisma"
 import userResponse from '../DTOs/Response/userResponse'
-import {userAddMapper, userUpdateMapper} from '../Mapper/userMapper'
+import { userAddMapper, userUpdateMapper } from '../Mapper/userMapper'
 
-export default class userRepository implements IUserRepository{
-    all = async(qnt: number)=>{
+export default class userRepository implements IUserRepository {
+    all = async (qnt: number) => {
         return await prismaClient.user.findMany({
-            take: qnt
+            take: qnt,
+            select: userResponse
         })
     }
 
     getByEmail = async (email: string) => {
         return await prismaClient.user.findUnique({
             where: { email },
-            include:{ Autentication: true }
+            include: { Autentication: true }
+
         })
     }
 
@@ -41,7 +43,7 @@ export default class userRepository implements IUserRepository{
         })
     }
 
-    update = async(id: number, user: UserDTO)=>{
+    update = async (id: number, user: UserDTO) => {
         return await prismaClient.user.update({
             where: { id: id },
             data: userUpdateMapper(user),
@@ -49,9 +51,9 @@ export default class userRepository implements IUserRepository{
         })
     }
 
-    delete = async(id: number)=>{
+    delete = async (id: number) => {
         return await prismaClient.autentication.delete({
-            where:{ id: id }
+            where: { id: id }
         })
     }
 }
